@@ -1,6 +1,14 @@
-type ExampleEntity @entity {
+type Token @entity {
   id: ID!
-  count: BigInt!
-  account: Bytes! # address
-  operator: Bytes! # address
+  creator: Bytes!
+  uri: String
+  type: String!
+  totalcopies: BigInt!
+}
+
+type TokenBalance @entity {
+  id: ID!
+  owner: Bytes!
+  amount: BigInt!
+  token: Token!
 }

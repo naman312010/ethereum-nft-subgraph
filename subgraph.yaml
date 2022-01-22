@@ -1,4 +1,5 @@
-specVersion: 0.0.2
+specVersion: 0.0.4
+repository: https://github.com/naman312010/ethereum-nft-subgraph
 schema:
   file: ./schema.graphql
 dataSources:
@@ -6,48 +7,41 @@ dataSources:
     name: ERC1155
     network: mainnet
     source:
-      address: "0xd374410e9bb22f3771ffbd0b40a07c0cf44a04fc"
       abi: ERC1155
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.5
       language: wasm/assemblyscript
       entities:
-        - ApprovalForAll
-        - OwnershipTransferred
-        - Paused
-        - Printed
-        - RoleAdminChanged
-        - RoleGranted
-        - RoleRevoked
-        - TransferBatch
-        - TransferSingle
-        - URI
-        - Unpaused
+        - Token
+        - TokenBalance
       abis:
         - name: ERC1155
           file: ./abis/ERC1155.json
       eventHandlers:
-        - event: ApprovalForAll(indexed address,indexed address,bool)
-          handler: handleApprovalForAll
-        - event: OwnershipTransferred(indexed address,indexed address)
-          handler: handleOwnershipTransferred
-        - event: Paused(address)
-          handler: handlePaused
-        - event: Printed(indexed uint256,indexed address,uint256)
-          handler: handlePrinted
-        - event: RoleAdminChanged(indexed bytes32,indexed bytes32,indexed bytes32)
-          handler: handleRoleAdminChanged
-        - event: RoleGranted(indexed bytes32,indexed address,indexed address)
-          handler: handleRoleGranted
-        - event: RoleRevoked(indexed bytes32,indexed address,indexed address)
-          handler: handleRoleRevoked
         - event: TransferBatch(indexed address,indexed address,indexed address,uint256[],uint256[])
           handler: handleTransferBatch
         - event: TransferSingle(indexed address,indexed address,indexed address,uint256,uint256)
           handler: handleTransferSingle
         - event: URI(string,indexed uint256)
           handler: handleURI
-        - event: Unpaused(address)
-          handler: handleUnpaused
+      file: ./src/mapping.ts
+  - kind: ethereum
+    name: ERC721
+    network: mainnet
+    source:
+      abi: ERC721
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.5
+      language: wasm/assemblyscript
+      entities:
+        - Token
+        - TokenBalance
+      abis:
+        - name: ERC721
+          file: ./abis/ERC721.json
+      eventHandlers:
+        - event: Transfer(indexed address,indexed address,indexed uint256)
+          handler: handleTransfer
       file: ./src/mapping.ts
