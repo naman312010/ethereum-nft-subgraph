@@ -16,6 +16,7 @@ export class Token extends Entity {
     super();
     this.set("id", Value.fromString(id));
 
+    this.set("contractAddress", Value.fromBytes(Bytes.empty()));
     this.set("creator", Value.fromBytes(Bytes.empty()));
     this.set("type", Value.fromString(""));
     this.set("totalcopies", Value.fromBigInt(BigInt.zero()));
@@ -45,6 +46,15 @@ export class Token extends Entity {
 
   set id(value: string) {
     this.set("id", Value.fromString(value));
+  }
+
+  get contractAddress(): Bytes {
+    let value = this.get("contractAddress");
+    return value!.toBytes();
+  }
+
+  set contractAddress(value: Bytes) {
+    this.set("contractAddress", Value.fromBytes(value));
   }
 
   get creator(): Bytes {

@@ -19,6 +19,7 @@ export function handleTransferBatch(event: TransferBatch): void {
     if (token == null) {
       token = new Token(tkid)
       token.creator = event.params.to
+      token.contractAddress = event.address
       token.type = "ERC1155"
       token.totalcopies = event.params.values[index]
       let callUriResult = erc1155.try_uri(event.params.ids[index])
@@ -60,6 +61,7 @@ export function handleTransferSingle(event: TransferSingle): void {
   if (token == null) {
     token = new Token(tkid)
     token.creator = event.params.to
+    token.contractAddress = event.address
     token.type = "ERC1155"
     token.totalcopies = event.params.value
     let callUriResult = erc1155.try_uri(event.params.id)
@@ -108,6 +110,7 @@ export function handleTransfer(event: Transfer): void {
   if (token == null) {
     token = new Token(tkid)
     token.creator = event.params.to
+    token.contractAddress = event.address
     token.type = "ERC721"
     token.totalcopies = BigInt.fromI32(1)
     let callUriResult = erc721.try_tokenURI(event.params.tokenId)

@@ -1,5 +1,6 @@
 type Token @entity {
   id: ID!
+  contractAddress: Bytes!
   creator: Bytes!
   uri: String
   type: String!
